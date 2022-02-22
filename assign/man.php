@@ -25,9 +25,13 @@ $begin = date("H:i", strtotime($class['ClassBegin']));
 $end = date("H:i", strtotime($class['ClassEnd']));
 
 $sql = "SELECT *,
-        (SELECT COUNT(*) FROM tb_exercisesend WHERE ExerciseID IN(
-            SELECT ExerciseID FROM tb_exercise WHERE ClassID=e.ClassID
+        (SELECT COUNT(*) 
+            FROM tb_exercisesend 
+            WHERE ExerciseID 
+            IN(
+                SELECT ExerciseID FROM tb_exercise WHERE ClassID=e.ClassID
             )
+            AND UserID=u.UserID
         )AS WorkSent 
         FROM tb_enroll e 
         INNER JOIN tb_user u ON e.UserID=u.UserID WHERE ClassID=?";
@@ -118,7 +122,7 @@ $stmt->close();
                                 <td><?= $user['Name'] ?></td>
                                 <td><?= $user['WorkSent'] . "/" . $class['TotalWork'] ?></td>
                                 <td>
-                                    <a href="./rem.php?classid=<?= $_GET['classid'] ?>&userid=<?= $user['UserID'] ?>" class="btn btn-danger">
+                                    <a href="./rem.php?classid=<?= $_GET['classid'] ?>&userid=<?= $user['UserID'] ?>" class="btn btn-danger" onclick="return confirm('คุณต้องการลบผู้เรียนดังกล่าวหรือไม่?')">
                                         <i class="fa fa-trash me-1" aria-hidden="true"></i>ลบออก
                                     </a>
                                 </td>
