@@ -124,7 +124,11 @@ $stmt->close();
                                 <td><?= str_pad($user['UserID'], 3, "0", STR_PAD_LEFT) ?></td>
                                 <td><?= $user['Name'] ?></td>
                                 <td><?= $user['WorkSent'] . "/" . $class['TotalWork'] ?></td>
-                                <td></td>
+                                <td>
+                                    <a href="file.php?classid=<?= $_GET['classid'] ?>&userid=<?= $user['UserID'] ?>" class="btn btn-warning">
+                                        <i class="fa fa-file me-1" aria-hidden="true"></i> ดูไฟล์
+                                    </a>
+                                </td>
                             </tr>
                         <?php
                         }
