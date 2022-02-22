@@ -7,8 +7,8 @@ if (empty($_SESSION['UserID'])) header('Location:../login.php');
 if (isset($_POST['Submit'])) {
     var_export($_POST);
     include("../sys_db_connect.php");
-    $stmt = $mysqli->prepare("INSERT INTO tb_class(ClassTitle,ClassDetail,Day,ClassBegin,ClassEnd)VALUES(?,?,?,?,?)");
-    $stmt->bind_param("sssss", $_POST['ClassName'], $_POST['ClassDetail'], $_POST['ClassDay'], $_POST['ClassBegin'], $_POST['ClassEnd']);
+    $stmt = $mysqli->prepare("INSERT INTO tb_class(ClassTitle,ClassDetail,Day,ClassBegin,ClassEnd,OwnerID)VALUES(?,?,?,?,?,?)");
+    $stmt->bind_param("sssssi", $_POST['ClassName'], $_POST['ClassDetail'], $_POST['ClassDay'], $_POST['ClassBegin'], $_POST['ClassEnd'], $_SESSION['UserID']);
     if (!$stmt->execute()) exit("cannot save!");
     header("Location:./");
 }
